@@ -15,13 +15,13 @@ export class HomeComponent implements OnInit {
         title: 'Spider-Man',
         releaseDate: new Date(),
         price: 1400.99,
-        poster: ''
+        poster: 'https://m.media-amazon.com/images/M/MV5BMGZlNTY1ZWUtYTMzNC00ZjUyLWE0MjQtMTMxN2E3ODYxMWVmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_UX182_CR0,0,182,268_AL_.jpg'
       },
       {
         title: 'Moana',
         releaseDate: new Date('2016-11-14'),
         price: 300.99,
-        poster: ''
+        poster: 'https://m.media-amazon.com/images/M/MV5BMjI4MzU5NTExNF5BMl5BanBnXkFtZTgwNzY1MTEwMDI@._V1_UX182_CR0,0,182,268_AL_.jpg'
       }
     ];
 
