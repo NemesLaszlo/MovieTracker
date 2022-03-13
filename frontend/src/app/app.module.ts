@@ -23,7 +23,12 @@ import { EditMovieTheaterComponent } from './movie-theaters/edit-movie-theater/e
 import { EditMovieComponent } from './movies/edit-movie/edit-movie.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { FormGenreComponent } from './genres/form-genre/form-genre.component';
-import { MovieFilterComponent } from './movies/movie-filter/movie-filter.component'
+import { MovieFilterComponent } from './movies/movie-filter/movie-filter.component';
+import { FormActorComponent } from './actors/form-actor/form-actor.component';
+import { InputImgComponent } from './utilities/input-img/input-img.component';
+import { InputMarkdownComponent } from './utilities/input-markdown/input-markdown.component'
+import { FormsModule } from '@angular/forms';
+import {MarkdownModule} from 'ngx-markdown'
 
 @NgModule({
   declarations: [
@@ -45,14 +50,19 @@ import { MovieFilterComponent } from './movies/movie-filter/movie-filter.compone
     EditMovieTheaterComponent,
     EditMovieComponent,
     FormGenreComponent,
-    MovieFilterComponent
+    MovieFilterComponent,
+    FormActorComponent,
+    InputImgComponent,
+    InputMarkdownComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
