@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using MovieTracker_API.Database;
 using MovieTracker_API.MapperProfiles;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 
 namespace MovieTracker_API.Extensions
 {
@@ -27,6 +31,22 @@ namespace MovieTracker_API.Extensions
 
             // Services
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+            services.AddSingleton(provider => new MapperConfiguration(config =>
+            {
+                var geometryFactory = provider.GetRequiredService<GeometryFactory>();
+                config.AddProfile(new AutoMapperProfiles(geometryFactory));
+            }).CreateMapper());
+
+            services.AddSingleton<GeometryFactory>(NtsGeometryServices
+                .Instance.CreateGeometryFactory(srid: 4326));
+
+
+            // Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieTracker_API", Version = "v1" });
+            });
         }
     }
 }
