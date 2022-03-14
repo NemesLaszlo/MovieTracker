@@ -11,6 +11,10 @@ namespace MovieTracker_API.MapperProfiles
         {
             CreateMap<GenreDTO, Genre>().ReverseMap();
             CreateMap<GenreCreationDTO, Genre>();
+
+            CreateMap<ActorDTO, Actor>().ReverseMap();
+            CreateMap<ActorCreationDTO, Actor>()
+                .ForMember(x => x.Picture, options => options.Ignore());
         }
     }
 }

@@ -34,6 +34,7 @@ namespace MovieTracker_API.Extensions
             // Services
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IActorRepository, ActorRepository>();
 
             services.AddSingleton(provider => new MapperConfiguration(config =>
             {
