@@ -49,9 +49,9 @@ namespace MovieTracker_API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> UpdateGenre(int id, [FromBody] GenreCreationDTO genreCreationDTO)
+        public async Task<ActionResult> UpdateGenre(int Id, [FromBody] GenreCreationDTO genreCreationDTO)
         {
-            var updateProcess = await _genreRepository.UpdateGenre(id, genreCreationDTO);
+            var updateProcess = await _genreRepository.UpdateGenre(Id, genreCreationDTO);
             if(updateProcess)
             {
                 return NoContent();

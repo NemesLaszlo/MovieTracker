@@ -33,6 +33,11 @@ namespace MovieTracker_API.Repositories
         public async Task<bool> CreateGenre(GenreCreationDTO genreCreationDTO)
         {
             var genre = _mapper.Map<Genre>(genreCreationDTO);
+            var existingCheck = await _context.Genres.AnyAsync(x => x.Name.Equals(genre.Name));
+            if(existingCheck)
+            {
+                return false;
+            }
             _context.Add(genre);
             return await _context.SaveChangesAsync() > 0;
         }
