@@ -38,7 +38,7 @@ export class MovieFilterComponent implements OnInit {
 
   filterMovies(values: any){
     if (values.title){
-      this.movies = this.movies.filter(movie => movie.title.indexOf(values.title) !== -1);
+      this.movies = this.movies.filter(movie => movie.title.toLowerCase().indexOf(values.title.toLowerCase()) !== -1);
     }
   }
 

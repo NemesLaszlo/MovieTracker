@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { actorCreationDTO } from '../actors.model';
+import { actorCreationDTO, actorDTO } from '../actors.model';
 
 @Component({
   selector: 'app-form-actor',
@@ -8,7 +8,7 @@ import { actorCreationDTO } from '../actors.model';
   styleUrls: ['./form-actor.component.css']
 })
 export class FormActorComponent implements OnInit {
-  @Input() model: actorCreationDTO | undefined;
+  @Input() model: actorDTO | undefined;
   @Output() onSaveChanges = new EventEmitter<actorCreationDTO>();
   form!: FormGroup;
 

@@ -1,1 +1,6 @@
-<p>edit-movie works!</p>
+<h2>Edit Movie</h2>
+
+<app-form-movie
+  [model]="model"
+  (onSaveChanges)="saveChanges($event)"
+></app-form-movie>

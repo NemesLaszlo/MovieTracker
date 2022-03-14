@@ -1,7 +1,7 @@
 export interface actorCreationDTO{ 
     name: string;
     dateOfBirth: Date;
-    picture: string;
+    picture: File;
     biography: string;
 }
 
