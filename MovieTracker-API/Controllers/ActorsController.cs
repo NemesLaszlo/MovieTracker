@@ -15,12 +15,15 @@ namespace MovieTracker_API.Controllers
         private readonly IActorRepository _actorRepository;
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IFileStorageService _fileStorageService;
+        private readonly string containerName = "actors";
 
-        public ActorsController(IActorRepository actorRepository, DataContext context, IMapper mapper)
+        public ActorsController(IActorRepository actorRepository, DataContext context, IMapper mapper, IFileStorageService fileStorageService)
         {
             _actorRepository = actorRepository;
             _mapper = mapper;
             _context = context;
+            _fileStorageService = fileStorageService;
         }
 
         [HttpGet]
@@ -63,10 +66,10 @@ namespace MovieTracker_API.Controllers
         {
             var actor = _mapper.Map<Actor>(actorCreationDTO);
 
-            /*if (actorCreationDTO.Picture != null)
+            if (actorCreationDTO.Picture != null)
             {
-                actor.Picture = await fileStorageService.SaveFile(containerName, actorCreationDTO.Picture);
-            }*/
+                actor.Picture = await _fileStorageService.SaveFile(containerName, actorCreationDTO.Picture);
+            }
 
             _context.Add(actor);
             await _context.SaveChangesAsync();
@@ -86,11 +89,10 @@ namespace MovieTracker_API.Controllers
 
             actor = _mapper.Map(actorCreationDTO, actor);
 
-            /*if (actorCreationDTO.Picture != null)
+            if (actorCreationDTO.Picture != null)
             {
-                actor.Picture = await fileStorageService.EditFile(containerName,
-                    actorCreationDTO.Picture, actor.Picture);
-            }*/
+                actor.Picture = await _fileStorageService.EditFile(containerName, actorCreationDTO.Picture, actor.Picture);
+            }
 
             _context.Entry(actor).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -111,7 +113,7 @@ namespace MovieTracker_API.Controllers
             _context.Remove(actor);
             await _context.SaveChangesAsync();
 
-            // await fileStorageService.DeleteFile(actor.Picture, containerName);
+            await _fileStorageService.DeleteFile(containerName, actor.Picture);
 
             return NoContent();
         }

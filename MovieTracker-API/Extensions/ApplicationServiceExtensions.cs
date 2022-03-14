@@ -5,6 +5,7 @@ using MovieTracker_API.Database;
 using MovieTracker_API.Interfaces;
 using MovieTracker_API.MapperProfiles;
 using MovieTracker_API.Repositories;
+using MovieTracker_API.Services;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
 
@@ -36,6 +37,8 @@ namespace MovieTracker_API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
+
+            services.AddScoped<IFileStorageService, AzureStorageService>();
 
             services.AddSingleton(provider => new MapperConfiguration(config =>
             {
