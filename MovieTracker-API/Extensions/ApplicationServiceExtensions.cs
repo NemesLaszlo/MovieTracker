@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MovieTracker_API.Database;
+using MovieTracker_API.Interfaces;
 using MovieTracker_API.MapperProfiles;
+using MovieTracker_API.Repositories;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
 
@@ -31,6 +33,7 @@ namespace MovieTracker_API.Extensions
 
             // Services
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
             services.AddSingleton(provider => new MapperConfiguration(config =>
             {
