@@ -27,7 +27,8 @@ namespace MovieTracker_API.Extensions
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:4200");
+                        .WithOrigins("http://localhost:4200")
+                        .WithExposedHeaders(new string[] { "totalAmountOfRecords" });
                 });
             });
 
