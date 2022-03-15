@@ -37,6 +37,7 @@ import { MultipleSelectorComponent } from './utilities/multiple-selector/multipl
 import { ActorsAutocompleteComponent } from './actors/actors-autocomplete/actors-autocomplete.component';
 import { DisplayErrorsComponent } from './utilities/display-errors/display-errors.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FormMovieComponent,
     MultipleSelectorComponent,
     ActorsAutocompleteComponent,
-    DisplayErrorsComponent
+    DisplayErrorsComponent,
+    MovieDetailsComponent
   ],
   imports: [
     BrowserModule,

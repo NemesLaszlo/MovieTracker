@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { formatDateFormData } from '../utilities/utils';
-import { movieCreationDTO, MoviePostGetDTO } from './movies.model';
+import { movieCreationDTO, movieDTO, MoviePostGetDTO } from './movies.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class MoviesService {
 
   constructor(private http: HttpClient) { }
 
+  // get genres and theaters from thr api (for the multiple selection)
   postGet(): Observable<MoviePostGetDTO>{
     return this.http.get<MoviePostGetDTO>(`${this.apiURL}/postget`);
   }
@@ -20,6 +21,10 @@ export class MoviesService {
   create(movieCreationDTO: movieCreationDTO): Observable<number> {
     const formData = this.BuildFormData(movieCreationDTO);
     return this.http.post<number>(this.apiURL, formData);
+  }
+
+  getById(id: number): Observable<movieDTO>{
+    return this.http.get<movieDTO>(`${this.apiURL}/${id}`);
   }
 
   private BuildFormData(movie: movieCreationDTO): FormData {

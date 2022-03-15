@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { coordinatesMap } from './coordinate';
+import { coordinatesMap, coordinatesMapWithMessage } from './coordinate';
 import {Marker, marker, tileLayer, latLng, LeafletMouseEvent, icon} from 'leaflet'
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -25,13 +25,21 @@ Marker.prototype.options.icon = iconDefault;
 export class MapComponent implements OnInit {
   layers: Marker<any>[] = [];
 
-  @Input() initialCoordinates: coordinatesMap[] = [];
+  @Input() initialCoordinates: coordinatesMapWithMessage[] = [];
+  @Input() editMode: boolean = true;
   @Output() onSelectedLocation = new EventEmitter<coordinatesMap>();
 
   constructor() { }
 
   ngOnInit(): void {
-    this.layers = this.initialCoordinates.map(value => marker([value.latitude, value.longitude]));
+    // this.layers = this.initialCoordinates.map(value => marker([value.latitude, value.longitude]));
+    this.layers = this.initialCoordinates.map((value) => {
+      const m = marker([value.latitude, value.longitude]);
+      if (value.message){
+        m.bindPopup(value.message, {autoClose: false, autoPan: false});
+      }
+      return m;
+    });
   }
 
   options = {
@@ -45,12 +53,14 @@ export class MapComponent implements OnInit {
   };
 
   handleMapClick(event: LeafletMouseEvent){
-    const latitude = event.latlng.lat;
-    const longitude = event.latlng.lng;
-    console.log({latitude, longitude});
-    this.layers = [];
-    this.layers.push(marker([latitude, longitude]));
-    this.onSelectedLocation.emit({latitude, longitude});
+    if(this.editMode) {
+      const latitude = event.latlng.lat;
+      const longitude = event.latlng.lng;
+      console.log({latitude, longitude});
+      this.layers = [];
+      this.layers.push(marker([latitude, longitude]));
+      this.onSelectedLocation.emit({latitude, longitude});
+    }
   }
 
 }
