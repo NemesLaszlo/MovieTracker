@@ -8,13 +8,13 @@ using MovieTracker_API.Interfaces;
 
 namespace MovieTracker_API.Controllers
 {
-    public class TheaterController : BaseApiController
+    public class MovieTheatersController : BaseApiController
     {
         private readonly ITheaterRepository _theaterRepository;
         private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public TheaterController(ITheaterRepository theaterRepository, DataContext context, IMapper mapper)
+        public MovieTheatersController(ITheaterRepository theaterRepository, DataContext context, IMapper mapper)
         {
             _theaterRepository = theaterRepository;
             _mapper = mapper;
