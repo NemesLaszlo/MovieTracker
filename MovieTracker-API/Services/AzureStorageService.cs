@@ -44,7 +44,7 @@ namespace MovieTracker_API.Services
 
         public async Task<string> EditFile(string containerName, IFormFile file, string fileRoute)
         {
-            await DeleteFile(fileRoute, containerName);
+            await DeleteFile(containerName, fileRoute);
 
             return await SaveFile(containerName, file);
         }

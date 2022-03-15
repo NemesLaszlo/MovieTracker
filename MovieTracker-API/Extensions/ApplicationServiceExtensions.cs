@@ -37,6 +37,7 @@ namespace MovieTracker_API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
+            services.AddScoped<ITheaterRepository, TheaterRepository>();
 
             services.AddScoped<IFileStorageService, AzureStorageService>();
 
