@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CdkDragDrop, moveItemInArray  } from '@angular/cdk/drag-drop';
+import { ActorsService } from '../actors.service';
+import { actorsMovieDTO } from '../actors.model';
 
 @Component({
   selector: 'app-actors-autocomplete',
@@ -11,33 +13,33 @@ import { CdkDragDrop, moveItemInArray  } from '@angular/cdk/drag-drop';
 })
 export class ActorsAutocompleteComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any> | undefined;
+  @Input() selectedActors: actorsMovieDTO[] = [];
+  actorsToDisplay: actorsMovieDTO[] = [];
   control: FormControl = new FormControl();
   columnsToDisplay = ['picture', 'name', 'character', 'actions']; // for the "Select the Actors" table - columns
 
-  actors = [
-    {name: 'Tom Holland', picture: 'https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL_.jpg'},
-    {name: 'Tom Hanks', picture: 'https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg'},
-    {name: 'Samuel L. Jackson', picture: 'https://m.media-amazon.com/images/M/MV5BMTQ1NTQwMTYxNl5BMl5BanBnXkFtZTYwMjA1MzY1._V1_UX214_CR0,0,214,317_AL_.jpg'}
-  ]
 
-  selectedActors: any = [];
-  originalActors = this.actors;
-
-  constructor() { }
+  constructor(private actorsService: ActorsService) { }
 
   ngOnInit(): void {
     this.control.valueChanges.subscribe(value => {
-      this.actors = this.originalActors;
-      this.actors = this.actors.filter(actor => actor.name.toLowerCase().indexOf(value) !== -1);
+      this.actorsService.searchByName(value).subscribe(actors => {
+        this.actorsToDisplay = actors;
+      });
     })
   }
 
   optionSelected(event: MatAutocompleteSelectedEvent){
     // console.log(event.option.value);
-    if(!this.selectedActors.includes(event.option.value)) {
-      this.selectedActors.push(event.option.value);
-    }
     this.control.patchValue('');
+    
+    // duplicate select avoid
+    if (this.selectedActors.findIndex(x => x.id == event.option.value.id) !== -1){
+      return;
+    }
+
+    this.selectedActors.push(event.option.value);
+
     if (this.table !== undefined){
       this.table.renderRows();
     }

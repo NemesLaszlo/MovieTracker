@@ -10,15 +10,19 @@ namespace MovieTracker_API.Controllers
     public class MoviesController : BaseApiController
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly ITheaterRepository _theaterRepository;
+        private readonly IGenreRepository _genreRepository;
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IFileStorageService _fileStorageService;
         private readonly string containerName = "movies";
 
-        public MoviesController(IMovieRepository movieRepository, DataContext context, IMapper mapper, 
-            IFileStorageService fileStorageService)
+        public MoviesController(IMovieRepository movieRepository, ITheaterRepository theaterRepository, IGenreRepository genreRepository,
+            DataContext context, IMapper mapper, IFileStorageService fileStorageService)
         {
             _movieRepository = movieRepository;
+            _theaterRepository = theaterRepository;
+            _genreRepository = genreRepository;
             _fileStorageService = fileStorageService;
             _mapper = mapper;
             _context = context;
@@ -51,6 +55,16 @@ namespace MovieTracker_API.Controllers
             await _context.SaveChangesAsync();
 
             return movie.Id;
+        }
+
+        // Get Genres and Theaters (DTOs)
+        [HttpGet("PostGet")]
+        public async Task<ActionResult<MoviePostGetDTO>> PostGet()
+        {
+            var movieTheaters = await _theaterRepository.GetAll();
+            var genres = await _genreRepository.GetGenres();
+
+            return new MoviePostGetDTO() { Genres = genres, MovieTheaters = movieTheaters };
         }
 
 

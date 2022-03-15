@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { actorsMovieDTO } from 'src/app/actors/actors.model';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
 import { movieCreationDTO, movieDTO } from '../movies.model';
 
@@ -10,25 +11,15 @@ import { movieCreationDTO, movieDTO } from '../movies.model';
 })
 export class FormMovieComponent implements OnInit {
   @Input() model: movieDTO | undefined;
+  @Input() nonSelectedGenres: multipleSelectorModel[] = [];
+  @Input() selectedGenres: multipleSelectorModel[] = [];
+  @Input() nonSelectedMovieTheaters: multipleSelectorModel[] = [];
+  @Input() selectedMovieTheaters: multipleSelectorModel[] = [];
+  @Input() selectedActors: actorsMovieDTO[]= [];
+
   @Output() onSaveChanges = new EventEmitter<movieCreationDTO>();
+  
   form!: FormGroup;
-
-  selectedGenres: multipleSelectorModel[] = [];
-
-  selectedMovieTheaters: multipleSelectorModel[] = [];
-
-  nonSelectedGenres: multipleSelectorModel[] = [
-    {key: 1, value: 'Drama'},
-    {key: 2, value: 'Action'},
-    {key: 3, value: 'Comedy'},
-  ];
-
-  nonSelectedMovieTheaters: multipleSelectorModel[] = [
-    {key: 1, value: 'Agora'},
-    {key: 2, value: 'Sambil'},
-    {key: 3, value: 'Megacentro'},
-  ]
-
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -43,7 +34,8 @@ export class FormMovieComponent implements OnInit {
       releaseDate: '',
       poster: '',
       genresIds: '',
-      movieTheatersIds: ''
+      movieTheatersIds: '',
+      actors: ''
     });
 
     if (this.model !== undefined){
@@ -65,6 +57,12 @@ export class FormMovieComponent implements OnInit {
 
     const movieTheatersIds = this.selectedMovieTheaters.map(value => value.key);
     this.form.get('movieTheatersIds')!.setValue(movieTheatersIds);
+
+    const actors = this.selectedActors.map(val => {
+      return {id: val.id, character: val.character}
+    });
+
+    this.form.get('actors')!.setValue(actors);
 
     this.onSaveChanges.emit(this.form.value);
   }

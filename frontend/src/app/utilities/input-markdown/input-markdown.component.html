@@ -4,7 +4,7 @@
       appearance="fill"
       (change)="changeMarkdown.emit($any($event.target).value)"
     >
-      <mat-label>Biography</mat-label>
+      <mat-label>{{ label }}</mat-label>
       <textarea [(ngModel)]="markdownContent" matInput></textarea>
     </mat-form-field>
   </mat-tab>
