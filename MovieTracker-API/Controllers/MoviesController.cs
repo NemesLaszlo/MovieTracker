@@ -57,6 +57,22 @@ namespace MovieTracker_API.Controllers
             return movie.Id;
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<MovieDTO>> GetMovie(int Id)
+        {
+            var movie = await _movieRepository.GetMovieById(Id);
+
+            if (movie is null)
+            {
+                return NotFound();
+            }
+
+            var dto = _mapper.Map<MovieDTO>(movie);
+            dto.Actors = dto.Actors.OrderBy(x => x.Order).ToList();
+
+            return dto;
+        }
+
         // Get Genres and Theaters (DTOs)
         [HttpGet("PostGet")]
         public async Task<ActionResult<MoviePostGetDTO>> PostGet()
@@ -66,6 +82,8 @@ namespace MovieTracker_API.Controllers
 
             return new MoviePostGetDTO() { Genres = genres, MovieTheaters = movieTheaters };
         }
+
+
 
 
     }
