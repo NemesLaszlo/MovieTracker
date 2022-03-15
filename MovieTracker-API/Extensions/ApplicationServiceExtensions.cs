@@ -38,6 +38,7 @@ namespace MovieTracker_API.Extensions
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
             services.AddScoped<ITheaterRepository, TheaterRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddScoped<IFileStorageService, AzureStorageService>();
 
