@@ -38,6 +38,7 @@ import { ActorsAutocompleteComponent } from './actors/actors-autocomplete/actors
 import { DisplayErrorsComponent } from './utilities/display-errors/display-errors.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
+import { AuthorizeViewComponent } from './security/authorize-view/authorize-view.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MovieDetailsComponent } from './movies/movie-details/movie-details.comp
     MultipleSelectorComponent,
     ActorsAutocompleteComponent,
     DisplayErrorsComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    AuthorizeViewComponent
   ],
   imports: [
     BrowserModule,
