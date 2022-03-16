@@ -39,8 +39,6 @@ namespace MovieTracker_API.Extensions
                 options.AddPolicy("IsAdmin", policy => policy.RequireClaim("role", "admin"));
             });
 
-            // services.AddApplicationInsightsTelemetry(Configuration["APPINSIGHTS_CONNECTIONSTRING"]);
-
         }
     }
 }
