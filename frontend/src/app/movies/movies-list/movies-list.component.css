@@ -18,11 +18,16 @@ p {
   font-weight: bold;
 }
 
-image {
+img {
   width: 225px;
   height: 300px;
 }
 
 button {
   margin-left: 1em;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }

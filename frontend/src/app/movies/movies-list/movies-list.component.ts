@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { movieDTO } from '../movies.model';
+import { MoviesService } from '../movies.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -6,19 +8,18 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./movies-list.component.css']
 })
 export class MoviesListComponent implements OnInit {
-  @Input() movies: any;
+  @Input() movies: movieDTO[] | undefined | null;
+  @Output() onDelete = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
   }
 
-  remove(index: number){
-    this.movies.splice(index, 1);
-  }
-
-  handleRating(rate: number) {
-    alert(`The user selected ${rate}`)
+  remove(id: number){
+    this.moviesService.delete(id).subscribe(() => {
+      this.onDelete.emit();
+    });
   }
 
 }

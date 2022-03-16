@@ -8,6 +8,7 @@ namespace MovieTracker_API.Interfaces
         Task<List<Movie>> GetUpcomingReleases(int TopMoviesNumber, DateTime Date);
         Task<List<Movie>> GetInTheaters(int TopMoviesNumber);
         Task<Movie> GetMovieById(int Id);
-        Task<List<MovieDTO>> Filter(FilterMoviesDTO filterMoviesDTO);
+        Task<MoviePutGetDTO> GetMovieForEdit(int Id);
+        IQueryable<Movie> Filter(FilterMoviesDTO filterMoviesDTO);
     }
 }

@@ -30,4 +30,12 @@
   </div>
 </form>
 
-<app-movies-list [movies]="movies"></app-movies-list>
+<app-movies-list (onDelete)="onDelete()" [movies]="movies"></app-movies-list>
+
+<mat-paginator
+  [length]="totalAmountOfRecords"
+  [pageSize]="recordsPerPage"
+  [pageSizeOptions]="[5, 10, 20, 50]"
+  (page)="paginatorUpdate($event)"
+>
+</mat-paginator>
