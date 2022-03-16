@@ -40,6 +40,8 @@ namespace MovieTracker_API.Extensions
             services.AddScoped<ITheaterRepository, TheaterRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
 
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IFileStorageService, AzureStorageService>();
 
             services.AddSingleton(provider => new MapperConfiguration(config =>
