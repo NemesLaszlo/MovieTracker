@@ -13,14 +13,6 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add(typeof(MyExceptionFilter));
 });
 
-/*
-builder.Services.AddControllers(opt =>
-{
-    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    opt.Filters.Add(new AuthorizeFilter(policy)); // every endpoints requires authentication
-});
-*/
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

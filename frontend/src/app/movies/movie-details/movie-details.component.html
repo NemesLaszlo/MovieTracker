@@ -11,7 +11,12 @@
         {{ genre.name }}
       </mat-chip>
     </mat-chip-list>
-    | {{ releaseDate!.toDateString() }} | Average: 0.0 | Your vote: 0.0
+    | {{ releaseDate!.toDateString() }} | Average: {{ movie.averageVote }} |
+    Your vote:
+    <app-rating
+      (onRating)="onRating($event)"
+      [selectedRate]="movie.userVote"
+    ></app-rating>
 
     <div style="display: flex">
       <span style="display: inline-block; margin-right: 1rem">

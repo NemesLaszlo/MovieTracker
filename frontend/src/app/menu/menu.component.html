@@ -12,7 +12,7 @@
     >
   </div>
 
-  <app-authorize-view>
+  <app-authorize-view [role]="'admin'">
     <ng-container authorized>
       <div>
         <a mat-button routerLink="genres">Genres</a>
@@ -33,4 +33,15 @@
   </app-authorize-view>
 
   <div class="space"></div>
+
+  <app-authorize-view>
+    <ng-container authorized>
+      <span>Hello, {{ securityService.getFieldFromJWT("email") }}</span>
+      <a mat-button (click)="securityService.logout()">Logout</a>
+    </ng-container>
+    <ng-container notAuthorized>
+      <a mat-button routerLink="login">Login</a>
+      <a mat-button routerLink="register">Register</a>
+    </ng-container>
+  </app-authorize-view>
 </mat-toolbar>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesListComponent } from './movies/movies-list/movies-list.component';
@@ -40,6 +40,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { AuthorizeViewComponent } from './security/authorize-view/authorize-view.component';
 import { LoginComponent } from './security/login/login.component';
+import { RegisterComponent } from './security/register/register.component';
+import { AuthenticationFormComponent } from './security/authentication-form/authentication-form.component';
+import { JwtInterceptorService } from './security/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,9 @@ import { LoginComponent } from './security/login/login.component';
     DisplayErrorsComponent,
     MovieDetailsComponent,
     AuthorizeViewComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    AuthenticationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,9 @@ import { LoginComponent } from './security/login/login.component';
     MarkdownModule.forRoot(),
     SweetAlert2Module.forRoot()
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
